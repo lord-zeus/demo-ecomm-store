@@ -3,20 +3,7 @@
     <div class="list-group">
     <?php 
 
-        $query = "SELECT * FROM categories";
-
-        $select_cats = query($query);
-        
-        confirm_query($select_cats);
-
-        while($row = fetch_array($select_cats)) {
-            $cat_id = $row['cat_id'];    
-            $cat_title = $row['cat_title'];
-
-        echo "<a href='#' class='list-group-item'>$cat_title</a>";
-
-        }
-
+        get_categories();
     ?>
 
 <!--

@@ -6,28 +6,8 @@
     <div class="container">
 
         <!-- Jumbotron Header -->
-        <header class="jumbotron hero-spacer">
-            <h1>
-            <?php 
-                if(isset($_GET['id'])) {
-                    $the_cat_id = $_GET['id'];
-                    $cat_name_query = "SELECT * FROM categories WHERE cat_id = $the_cat_id";
-                    
-                    $cat_results = query($cat_name_query);
-                    
-                    while($row = fetch_array($cat_results)) {
-                        
-                        echo $row['cat_title'];
-                    }
-                    
-                }
-                
-                
-            ?>
-            </h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>
-            <p><a class="btn btn-primary btn-large">Call to action!</a>
-            </p>
+        <header class="jumbotron">
+            <h1>Shop</h1>
         </header>
 
         <hr>
@@ -44,12 +24,7 @@
         <div class="row text-center">
             
             <?php 
-            
-            if(isset($_GET['id'])):
-            
-                $the_cat_id = escape_string($_GET['id']);   
-                
-                $query = "SELECT * FROM products WHERE product_category_id = $the_cat_id";
+                $query = "SELECT * FROM products";
                 $results = query($query);
                 confirm_query($query);
 
@@ -72,9 +47,7 @@
             
             <?php
             
-                endwhile;
-            endif;
-            
+                endwhile;            
             ?>
 
 
