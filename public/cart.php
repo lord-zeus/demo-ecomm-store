@@ -53,9 +53,15 @@ function cart() {
     //init total item quantity
     $item_quantity = 0;
     
+    //paypal vars
+    $item_name = 1;
+    $item_number = 1; 
+    $amount = 1;
+    $quantity = 1;
+    
     //init value of number of product titles; increments by 1 in each foreach iteration
     $counter = 1;
-    
+    print_r($_SESSION);
     //loop through all products
     foreach($_SESSION as $name => $value) {
         
@@ -89,9 +95,18 @@ function cart() {
                                 <a class="btn btn-warning" href="cart.php?remove='.$row['product_id'].'"><span class="glyphicon glyphicon-minus"></span></a>
                                 <a class="btn btn-danger" href="cart.php?delete='.$row['product_id'].'"><span class="glyphicon glyphicon-remove"></span></a>
                             </td>
-                        </tr>';
+                        </tr>
+                        <input type="hidden" name="item_name_'.$item_name.'" value="'.$row['product_title'].'">
+                        <input type="hidden" name="item_number_'.$item_number.'" value="'.$row['product_id'].'">
+                        <input type="hidden" name="amount_'.$amount.'" value="'.$row['product_price'].'">
+                        <input type="hidden" name="quantity_'.$quantity.'" value="'.$value.'">';
 
                     echo $product;
+                    
+                    $item_name++;
+                    $item_number++; 
+                    $amount++;
+                    $quantity++;
                     
                     //with each iteration of foreach, increase the cart total by the current iteration's subtotal and set it to the $_SESSION['item_total']
                     $_SESSION['item_total'] = $total += $sub_total;
@@ -101,12 +116,22 @@ function cart() {
 //                    echo $counter.' '.$_SESSION['item_total'];
             
                     //increment the product_title counter
-                    $counter++;
+//                    $counter++;
                 }  
             }
         }
     }
 
+}
+
+function show_paypal() {
+    
+    if(isset($_SESSION['item_quantity'])) {
+        $paypal_btn = '<input type="image" name="upload" border="0" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif"
+alt="PayPal - The safer, easier way to pay online">';
+    
+        return $paypal_btn;   
+    }
 }
 
 ?>
