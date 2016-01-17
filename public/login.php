@@ -24,7 +24,7 @@
                     set_message('Incorrect username/password combination');
                     redirect('login.php');    
                 } else {
-                    set_message('Welcome to Admin, '.$username);
+                    $_SESSION['username'] = $username;
                     redirect('admin');    
                 }
 

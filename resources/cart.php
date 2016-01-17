@@ -12,11 +12,11 @@ if(isset($_GET['add'])) {
     while($row = fetch_array($query)) {
         if($row['product_quantity'] > $_SESSION['product_'.$_GET['add']]) {
             $_SESSION['product_'.$_GET['add']] += 1;
-            redirect('checkout.php');            
+            redirect('../public/checkout.php');            
                       
         } else {
             set_message('Sorry, we only have ' . $row['product_quantity'] . ' of ' . $row['product_title'] . ' in stock.');    
-            redirect('checkout.php');
+            redirect('../public/checkout.php');
         }
     }
 
@@ -31,9 +31,9 @@ if(isset($_GET['remove'])) {
     if($_SESSION['product_'.$_GET['remove']] < 1) {
         unset($_SESSION['item_total']);
         unset($_SESSION['item_quantity']);
-        redirect('checkout.php');    
+        redirect('../public/checkout.php');    
     } else {
-        redirect('checkout.php');    
+        redirect('../public/checkout.php');    
     }
 }
 
@@ -42,7 +42,7 @@ if(isset($_GET['delete'])) {
     unset($_SESSION['item_total']);
     unset($_SESSION['item_quantity']);
     
-    redirect('checkout.php');    
+    redirect('../public/checkout.php');    
 }
 
 
@@ -91,9 +91,9 @@ function cart() {
                             <td>'.$value.'</td>
                             <td>$'.$sub_total.'</td>
                             <td>
-                                <a class="btn btn-success" href="cart.php?add='.$row['product_id'].'"><span class="glyphicon glyphicon-plus"></span></a>
-                                <a class="btn btn-warning" href="cart.php?remove='.$row['product_id'].'"><span class="glyphicon glyphicon-minus"></span></a>
-                                <a class="btn btn-danger" href="cart.php?delete='.$row['product_id'].'"><span class="glyphicon glyphicon-remove"></span></a>
+                                <a class="btn btn-success" href="../resources/cart.php?add='.$row['product_id'].'"><span class="glyphicon glyphicon-plus"></span></a>
+                                <a class="btn btn-warning" href="../resources/cart.php?remove='.$row['product_id'].'"><span class="glyphicon glyphicon-minus"></span></a>
+                                <a class="btn btn-danger" href="../resources/cart.php?delete='.$row['product_id'].'"><span class="glyphicon glyphicon-remove"></span></a>
                             </td>
                         </tr>
                         <input type="hidden" name="item_name_'.$item_name.'" value="'.$row['product_title'].'">
@@ -126,7 +126,7 @@ function cart() {
 
 function show_paypal() {
     
-    if(isset($_SESSION['item_quantity'])) {
+    if(isset($_SESSION['item_quantity']) && $_SESSION['item_quantity'] >= 1) {
         $paypal_btn = '<input type="image" name="upload" border="0" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif"
 alt="PayPal - The safer, easier way to pay online">';
     

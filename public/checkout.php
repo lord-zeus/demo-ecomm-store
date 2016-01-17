@@ -1,6 +1,5 @@
 <!-- Configuration-->
 <?php require_once("../resources/config.php"); ?>
-<?php require_once("cart.php"); ?>
 
 <!-- Header and nav-->
 <?php include(TEMPLATE_FRONT .  "/header.php");?>
