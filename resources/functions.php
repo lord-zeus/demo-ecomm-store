@@ -42,6 +42,11 @@ function fetch_array($result) {
     return mysqli_fetch_array($result);
 }
 
+function last_id() {
+    global $connection;
+    return mysqli_insert_id($connection);
+}
+
 ////////////////// FRONT END FUNCTIONS ///////////////////////
 
 //get products
@@ -101,6 +106,23 @@ function get_products_shop_page() {
 }
 
 ////////////////// BACK END FUNCTIONS ///////////////////////
+function display_orders() {
+    $query = query("SELECT * FROM orders");
+    confirm_query($query);
+        
+    while($row = fetch_array($query)) {
+        $orders = "<tr>
+                <td>{$row['order_id']}</td>
+                <td>{$row['order_amount']}</td>
+                <td>{$row['order_transaction']}</td>
+                <td>{$row['order_currency']}</td>
+                <td>{$row['order_status']}</td>    
+                <td><a href='../../resources/templates/back/delete_order.php?id={$row['order_id']}' class='btn btn-danger'><i class='fa fa-fw fa-times'></i>Delete</a></td>
+            </tr>";
+        
+        echo $orders;
+    }
+}
 
 
 ?>

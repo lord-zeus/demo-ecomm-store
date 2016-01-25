@@ -1,5 +1,5 @@
 <!-- Configuration-->
-<?php require_once("../resources/config.php"); ?>
+<?php require_once("config.php"); ?>
 
 <?php
 
@@ -132,6 +132,75 @@ alt="PayPal - The safer, easier way to pay online">';
     
         return $paypal_btn;   
     }
+}
+
+
+
+function process_transaction() {
+    if(isset($_GET['tx'])) { 
+        $amount = $_GET['amt'];//amount
+        $currency = $_GET['cc']; //currency
+        $transaction = $_GET['tx']; //transaction id
+        $status = $_GET['st']; //status
+
+        //init value of cart total
+        $total = 0;
+
+        //init total item quantity
+        $item_quantity = 0;
+
+
+
+        //init value of number of product titles; increments by 1 in each foreach iteration
+        $counter = 1;
+    //    print_r($_SESSION);
+        //loop through all products
+        foreach($_SESSION as $name => $value) {
+
+            //get only the products that have a quantity > 0 (they have been added to cart)
+            if($value > 0) {
+                //get only the "product_" $_SESSION key
+                if(substr($name, 0, 8) == "product_") {
+
+                    //extract the product id number
+                    $id = substr($name, 8);
+
+                    $send_order = query("INSERT INTO orders(order_amount, order_transaction, order_status, order_currency) VALUES('$amount', '$transaction', '$status', '$currency')");
+
+                    $last_id = last_id();
+                    confirm_query($send_order);
+                    
+                    $query = query('SELECT * FROM products WHERE product_id ='.escape_string($id));
+
+                    confirm_query($query);
+
+
+
+                    while($row = fetch_array($query)) {
+                        //each product will have its own respective subtotal
+                        $sub_total = $row['product_price'] * $value;
+                        $item_quantity += $value;
+
+                        $product_price = $row['product_price'];
+                        $product_title = $row['product_title'];
+
+                        $insert_report = query("INSERT INTO reports(report_product_id, report_order_id, report_product_title, report_product_price, report_product_quantity) VALUES('$id', '$last_id', '$product_title', '$product_price', '$value')");
+
+                        confirm_query($insert_report);
+                    }
+                        $total += $sub_total;
+                        echo $item_quantity;
+
+
+
+                }
+            }
+        }
+            session_destroy();
+    } else {
+    redirect("index.php");
+}
+
 }
 
 ?>
