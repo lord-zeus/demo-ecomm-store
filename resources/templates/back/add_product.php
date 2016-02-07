@@ -35,7 +35,7 @@
 
                 <div class="form-group">
                     <label for="product-title">Product Short Description</label>
-                    <textarea name="product_short_desc" id="" cols="30" rows="3" class="form-control"></textarea>
+                    <textarea name="short_desc" id="" cols="30" rows="3" class="form-control"></textarea>
                 </div>
                 
             </div>
@@ -57,9 +57,10 @@
                 <!-- Product Categories-->
 
                 <div class="form-group">
-                    <label for="product-title">Product Category</label>
-                    <select name="product_category" id="" class="form-control">
+                    <label for="product-category-id">Product Category</label>
+                    <select name="product_category_id" id="" class="form-control">
                         <option value="">Select Category</option>
+                        <?php show_categories_add_product(); ?>
 
                     </select>
 

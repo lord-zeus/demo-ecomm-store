@@ -34,12 +34,13 @@
 
             <div class="col-md-3 col-sm-6 hero-feature">
                 <div class="thumbnail">
-                    <img src="<?php echo $row['product_image'] ?>" alt="">
+                    <img src="../resources/<?php echo display_image($row['product_image']); ?>" alt="" height="150">
                     <div class="caption">
                         <h3><?php echo $row['product_title'] ?></h3>
                         <p>asdfhlasfjkl asflkj;al lkasjf lkjl;asjf lk</p>
                         <p>
-                            <a href="#" class="btn btn-primary">Buy Now!</a> <a href="item.php?id=<?php echo $row['product_id']?>" class="btn btn-default">More Info</a>
+                            <a href="../resources/cart.php?add=<?php echo $row['product_id']; ?>" class="btn btn-primary">Buy Now!</a> 
+                            <a href="item.php?id=<?php echo $row['product_id']?>" class="btn btn-default">More Info</a>
                         </p>
                     </div>
                 </div>

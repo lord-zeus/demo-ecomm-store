@@ -86,7 +86,9 @@ function cart() {
                     
                     $product = 
                         '<tr>
-                            <td>'.$row['product_title'].'</td>
+                            <td>'.$row['product_title'].'<br>
+                                <img src="../resources/'.display_image($row['product_image']).'">
+                            </td>
                             <td>$'.$row['product_price'].'</td>
                             <td>'.$value.'</td>
                             <td>$'.$sub_total.'</td>

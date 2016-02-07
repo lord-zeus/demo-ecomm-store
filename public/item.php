@@ -31,7 +31,7 @@
 <div class="row">
 
     <div class="col-md-7">
-       <img class="img-responsive" width="100%" src="<?php echo $row['product_image'] ?>" alt="">
+       <img class="img-responsive" width="100%" src="../resources/<?php echo display_image($row['product_image']); ?>" alt="">
 
     </div>
 
@@ -215,20 +215,5 @@
 </div>
     <!-- /.container -->
 
-    <div class="container">
-
-        <hr>
-
-        <!-- Footer -->
-        <footer>
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; Your Website 2014</p>
-                </div>
-            </div>
-        </footer>
-
-    </div>
-    <!-- /.container -->
 
 <?php include TEMPLATE_FRONT . DS . "footer.php"; ?>   
